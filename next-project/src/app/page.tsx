@@ -1,16 +1,22 @@
-import { supabase } from './lib/db';
+import Link from 'next/link';
+import { Button } from '@nextui-org/react';
 
 export default async function Page() {
-  
-  const { data: users } = await supabase.from('users').select();
-
   return (
-    <div>
-      <ul>
-        {users?.map((user) => (
-          <li key={user.id}>{user.name}</li>
-        ))}
-      </ul>
+    <div className="grid gap-6">
+      <div>
+        <h1>Welcome to Cloud Storage application</h1>
+        <p>training purposes</p>
+      </div>
+
+      <div className="flex gap-4 justify-around">
+        <Link href={'/login'}>
+          <Button>Login</Button>
+        </Link>
+        <Link href={'/signup'}>
+          <Button> Sign up</Button>
+        </Link>
+      </div>
     </div>
   );
 }
