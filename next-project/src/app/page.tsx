@@ -1,6 +1,7 @@
 import { supabase } from './lib/db';
 
 export default async function Page() {
+  
   const { data: users } = await supabase.from('users').select();
 
   return (
