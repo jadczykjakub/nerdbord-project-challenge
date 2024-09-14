@@ -8,10 +8,12 @@ import {
 } from './actions';
 import Modal from './Modal';
 import { useDisclosure } from '@nextui-org/react';
+import { div } from 'framer-motion/client';
 
 export default function FileList() {
   const [listImage, setListImage] = useState([]);
   const [loading, setLoading] = useState(true); // Optional: Add a loading state
+  const [result, setResult] = useState({ status: '', message: '' });
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -49,6 +51,7 @@ export default function FileList() {
   const handleDelete = async (fileName: string) => {
     const result = await deleteFile(fileName);
     console.log(result);
+    setResult(result)
   };
 
   return (
@@ -75,6 +78,8 @@ export default function FileList() {
         ) : (
           <div>No items found</div>
         )}
+
+        <div>{result.status && <div>{result.message}</div>}</div>
       </div>
       <Modal
         isOpen={isOpen}
