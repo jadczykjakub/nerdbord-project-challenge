@@ -1,7 +1,11 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { getListObjectsForUser, createSafeUrlToDownloadFile } from './actions';
+import {
+  getListObjectsForUser,
+  createSafeUrlToDownloadFile,
+  deleteFile,
+} from './actions';
 import Modal from './Modal';
 import { useDisclosure } from '@nextui-org/react';
 
@@ -36,10 +40,15 @@ export default function FileList() {
   const handleDownload = async (fileName: string) => {
     console.log(fileName);
     const url = await createSafeUrlToDownloadFile(fileName);
-    setUrlToDownload(url);
+    setUrlToDownload(url!);
     setFileToDownload(fileName);
 
     onOpen();
+  };
+
+  const handleDelete = async (fileName: string) => {
+    const result = await deleteFile(fileName);
+    console.log(result);
   };
 
   return (
@@ -52,6 +61,14 @@ export default function FileList() {
               <p>{item}</p>
               <button onClick={() => handleDownload(item)}>
                 create link to download
+              </button>
+              <br />
+              <button
+                onClick={() => {
+                  handleDelete(item);
+                }}
+              >
+                delete file
               </button>
             </div>
           ))
