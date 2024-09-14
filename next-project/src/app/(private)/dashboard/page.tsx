@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation';
+import Form from './Form';
 
 import { createClientServer } from '@lib/db';
 
@@ -14,6 +15,8 @@ export default async function PrivatePage() {
     <div>
       <h1>Good to see you</h1>
       <p> {data.user.email}</p>
+
+      <Form />
     </div>
   );
 }
