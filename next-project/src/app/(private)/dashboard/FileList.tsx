@@ -1,13 +1,19 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { getListObjectsForUser, createSafeUrlToDownloadFile } from './actions';
+import {
+  getListObjectsForUser,
+  createSafeUrlToDownloadFile,
+  deleteFile,
+} from './actions';
 import Modal from './Modal';
 import { useDisclosure } from '@nextui-org/react';
+import { div } from 'framer-motion/client';
 
 export default function FileList() {
   const [listImage, setListImage] = useState([]);
   const [loading, setLoading] = useState(true); // Optional: Add a loading state
+  const [result, setResult] = useState({ status: '', message: '' });
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -36,10 +42,16 @@ export default function FileList() {
   const handleDownload = async (fileName: string) => {
     console.log(fileName);
     const url = await createSafeUrlToDownloadFile(fileName);
-    setUrlToDownload(url);
+    setUrlToDownload(url!);
     setFileToDownload(fileName);
 
     onOpen();
+  };
+
+  const handleDelete = async (fileName: string) => {
+    const result = await deleteFile(fileName);
+    console.log(result);
+    setResult(result)
   };
 
   return (
@@ -53,11 +65,21 @@ export default function FileList() {
               <button onClick={() => handleDownload(item)}>
                 create link to download
               </button>
+              <br />
+              <button
+                onClick={() => {
+                  handleDelete(item);
+                }}
+              >
+                delete file
+              </button>
             </div>
           ))
         ) : (
           <div>No items found</div>
         )}
+
+        <div>{result.status && <div>{result.message}</div>}</div>
       </div>
       <Modal
         isOpen={isOpen}
