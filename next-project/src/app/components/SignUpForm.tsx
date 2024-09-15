@@ -20,6 +20,7 @@ export default function SignUpForm() {
       setLoading(false);
     }
   }, [state]);
+  
 
   return (
     <Card className="max-w-sm mx-auto p-6 bg-white shadow-lg rounded-lg dark:bg-gray-800 dark:shadow-gray-700 mt-12 ">
