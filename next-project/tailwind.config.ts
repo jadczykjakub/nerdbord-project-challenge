@@ -8,20 +8,17 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
+  darkMode: ['selector', '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
-        height: {
-          'calc-h': 'calc(100vh-5rem)',
-        },
-        colors: {
-          primary: '#ff00ff',
-          secondary: '#363636',
-        },
+        primary: '#94D1BE',
+        secondary: '#DAF0EE',
       },
     },
   },
-  darkMode: 'class',
-  plugins: [nextui()],
+  plugins: [
+    nextui(),
+  ],
 };
 export default config;

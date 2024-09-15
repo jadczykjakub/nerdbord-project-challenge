@@ -1,19 +1,19 @@
-import { redirect } from 'next/navigation';
+import { withAuth } from '@components/HOC/withAuth';
+import FileHandling from '@components/FileHandling';
 
-import { createClientServer } from '@lib/db';
-
-export default async function PrivatePage() {
-  const supabase = createClientServer();
-
-  const { data, error } = await supabase.auth.getUser();
-  if (error || !data?.user) {
-    redirect('/login');
-  }
-
+function Page({ user }: { user: string }) {
   return (
-    <div>
-      <h1>Good to see you</h1>
-      <p> {data.user.email}</p>
+    <div className="grid gap-8 w-dvw ">
+      <div>
+        <h1 className="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100">
+          Welcome to your cloud storage
+        </h1>
+        <p className="text-lg text-gray-700 dark:text-gray-300">{user}</p>
+      </div>
+
+      <FileHandling />
     </div>
   );
 }
+
+export default withAuth(Page);
