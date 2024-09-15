@@ -23,8 +23,6 @@ export default function CustomModal({
   urlToDownload,
   fileName,
 }: TCustomModal) {
-  const [size, setSize] = React.useState('md');
-
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
